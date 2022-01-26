@@ -10,7 +10,14 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-nodejs-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - name: Use NodeJS
         uses: actions/setup-node@v1
         with: 
@@ -20,9 +27,23 @@ jobs:
       - run: npm test -- --coverage
         env: 
           CI: true
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage
+          path: coverage
       - name: Build project
         if: github.event_name == 'push'
         run: npm run build
+      - name: Upload build folder
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
+      # - name: Download artifacts
+      #   uses: actions/download-artifact@v1
+      #   with: 
       - name: Deploy staging
         if: github.event_name == 'push'
         run: echo "npx surge --project ./build --domain silent-apparatus.surge.sh"
