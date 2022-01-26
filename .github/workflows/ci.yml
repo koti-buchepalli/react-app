@@ -15,7 +15,7 @@ jobs:
           node-version: "17.x"
       - run: npm ci
       - run: npm run format:check
-      - run: npm test -- --codecoverage
+      - run: npm test -- --coverage
         env: 
           CI: true
   
