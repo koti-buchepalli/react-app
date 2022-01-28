@@ -4299,6 +4299,7 @@ exports.getIDToken = getIDToken;
 const core = __webpack_require__ (470);
 const github = __webpack_require__ (469);
 
+async function run() {
 try{
 
     const token = core.getInput('token');
@@ -4308,7 +4309,7 @@ try{
 
     const octokit = new github.GitHub(token);
 
-    const response = octokit.issues.create({
+    const response = await octokit.issues.create({
         // owner : github.context.repo.owner,
         // repo : github.context.repo.repo,
         ...github.context.repo,
@@ -4318,11 +4319,13 @@ try{
     });
 
     core.setOutput("issue", JSON.stringify(response.data));
-    
+
 }catch (error) {
     core.setFailed(error.message);
 }
+}
 
+run();
 
 
 /***/ }),

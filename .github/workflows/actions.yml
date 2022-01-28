@@ -8,7 +8,7 @@ jobs:
         id: issue
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          titile: Titile
+          title: Title
           body: Body
           assignees: |
             koti-buchepalli
