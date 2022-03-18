@@ -14,7 +14,8 @@ jobs:
       - uses: actions/checkout@v1
       - name: conditional
         run: |
-          if [[ ${{ github.event_name }} == 'push' ]] then
+          if [[ ${{ github.event_name }} == 'push' ]] 
+          then
             echo "true"
           else
             echo "false"
