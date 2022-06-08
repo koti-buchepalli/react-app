@@ -16,9 +16,8 @@ jobs:
           if [[ ${{ github.event_name }} == 'push' ]] 
           then
             pwd
-            touch src/settings.js
-            echo "${{ secrets.SUPER_SECRET }}" >> src/settings.js
-            cat src/settings.js
+            echo "${{ secrets.SUPER_SECRET }}" >> src/App.js
+            cat src/App.js
           else
             echo "false"
           fi
