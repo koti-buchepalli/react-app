@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - develop
-      - feature/*
+      - replace
 
 jobs:
   build:
@@ -16,7 +15,10 @@ jobs:
         run: |
           if [[ ${{ github.event_name }} == 'push' ]] 
           then
-            echo "true"
+            pwd
+            touch src/settings.js
+            echo ${{ github.event_name }} >> src/settings.js
+            cat settings.js
           else
             echo "false"
           fi
