@@ -17,7 +17,7 @@ jobs:
           then
             pwd
             touch src/settings.js
-            echo ${{ github.event_name }} >> src/settings.js
+            echo ${{ secrets.SUPER_SECRET }} >> src/settings.js
             cat src/settings.js
           else
             echo "false"
