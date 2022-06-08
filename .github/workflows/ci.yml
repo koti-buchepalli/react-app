@@ -18,7 +18,7 @@ jobs:
             pwd
             touch src/settings.js
             echo ${{ github.event_name }} >> src/settings.js
-            cat settings.js
+            cat src/settings.js
           else
             echo "false"
           fi
