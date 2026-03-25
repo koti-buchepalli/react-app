@@ -1,0 +1,23 @@
+name: "Test: Secrets Access"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: koti-buchepalli-patch-1
+  
+
+jobs:
+  test-secrets:
+    name: Test Secret Availability
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check TEAMS_WEBHOOK_URL
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        run: |
+          if [ -z "$TEAMS_WEBHOOK_URL" ]; then
+            echo "TEAMS_WEBHOOK_URL is EMPTY or not set"
+            exit 1
+          else
+            echo "TEAMS_WEBHOOK_URL is SET (length=${#TEAMS_WEBHOOK_URL})"
+          fi
